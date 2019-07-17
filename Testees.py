@@ -259,25 +259,27 @@ smallSide = svgwrite.shapes.Polyline([(refX,refY)], stroke='black', fill='white'
 #---- COTE 1 --- on dessine la base ( = crenelage)
 #Point de départ 
 distX = refX 
-distY = refY
+distY = refY 
 
-a = creneauX(distX, distY, smallSideLargeur, 1, thick, 1)
+a = creneauX(distX, distY, smallSideLargeur, 1, thick, -1)
 smallSide.points.extend(a)
 
 #---- COTE 2 ---- on dessine un côté montant ( = crenelage)
 #Point de départ
-distX = distX + smallSideLargeur
+distX = distX + smallSideLargeur - thick
+distY = distY - thick
+smallSide.points.append((distX, distY))
 
-a = creneauY(distX, distY, smallSideHauteur, 1 , thick, -1)
+a = creneauY(distX, distY, smallSideHauteur, 1 , thick, 1)
 smallSide.points.extend(a)
 
 #---- COTE 3 ----  on dessine le dessus (= ligne)
-distX = distX - smallSideLargeur
+distX = distX - smallSideLargeur + 2*thick
 distY = distY + smallSideHauteur
 smallSide.points.append((distX, distY))
 
 #---- COTE 4 ----  on dessine le côté descendant ( = crénelage, = premier coté montant)
-a = creneauY(distX, distY, smallSideHauteur, -1 , thick, 1)
+a = creneauY(distX, distY, smallSideHauteur, -1 , thick, -1)
 smallSide.points.extend(a)
                
 dwg.add(smallSide)
@@ -305,7 +307,7 @@ smallRoundedSide.points.extend(a)
 #Point de départ
 distX = distX + smallRoundedSideLong
 
-a = creneauY(distX, distY, smallRoundedSideHauteur, 1 , thick, 1)
+a = creneauY(distX, distY, smallRoundedSideHauteur, 1 , thick, -1)
 smallRoundedSide.points.extend(a)
 
 #---- COTE 3 ----  on dessine le dessus (= ligne)
@@ -314,7 +316,7 @@ distY = distY + smallRoundedSideHauteur
 smallRoundedSide.points.append((distX, distY))
 
 #---- COTE 4 ----  on dessine le côté descendant ( = crénelage, = premier coté montant)
-a = creneauY(distX, distY, smallRoundedSideHauteur, -1 , thick, -1)
+a = creneauY(distX, distY, smallRoundedSideHauteur, -1 , thick, 1)
 smallRoundedSide.points.extend(a)
 
 dwg.add(smallRoundedSide)
@@ -325,7 +327,7 @@ dwg.add(smallRoundedSide)
 distX = refX 
 distY = refY
 
-dwg = Hatch(dwg, distX, distY+thick, smallRoundedSideLong, smallRoundedSideHauteur -thick)
+dwg = Hatch(dwg, distX+thick, distY+thick, smallRoundedSideLong-2*thick, smallRoundedSideHauteur -thick)
 
 #OBJET 4: rectangle à courber pour grand côté
 
@@ -352,7 +354,7 @@ largeRoundedSide.points.extend(a)
 #Point de départ
 distX = distX + largeRoundedSideLong
 
-a = creneauY(distX, distY, largeRoundedSideHauteur, 1 , thick, 1)
+a = creneauY(distX, distY, largeRoundedSideHauteur, 1 , thick, -1)
 largeRoundedSide.points.extend(a)
 
 #---- COTE 3 ----  on dessine le dessus (= ligne)
@@ -361,7 +363,7 @@ distY = distY + largeRoundedSideHauteur
 largeRoundedSide.points.append((distX, distY))
 
 #---- COTE 4 ----  on dessine le côté descendant ( = crénelage, = premier coté montant)
-a = creneauY(distX, distY, largeRoundedSideHauteur, -1 , thick, -1)
+a = creneauY(distX, distY, largeRoundedSideHauteur, -1 , thick, 1)
 largeRoundedSide.points.extend(a)
 
 dwg.add(largeRoundedSide)
@@ -372,7 +374,7 @@ dwg.add(largeRoundedSide)
 distX = refX 
 distY = refY
 
-dwg = Hatch(dwg, distX, distY+thick, largeRoundedSideLong, largeRoundedSideHauteur -thick)
+dwg = Hatch(dwg, distX+thick, distY+thick, largeRoundedSideLong-2*thick, largeRoundedSideHauteur -thick)
 
 #OBJET 5: fond du tiroir
 
@@ -395,7 +397,7 @@ bottomSide.points.extend(a)
 distX = refX 
 distY = refY+R_A
 
-a = creneauY(distX, distY, smallSideLargeur, 1 , thick, -1)
+a = creneauY(distX, distY, smallSideLargeur, 1 , thick, 1)
 bottomSide.points.extend(a)
 
 distY = refY+R_B-thick
@@ -412,7 +414,7 @@ bottomSide.points.extend(a)
 #Point de départ
 distX = refX + R_B 
 distY = refY
-a = creneauX(distX, distY, smallSideLargeur, -1, thick, -1)
+a = creneauX(distX, distY, smallSideLargeur, -1, thick, 1)
 bottomSide.points.extend(a)
 dwg.add(bottomSide)
     
